@@ -1,6 +1,6 @@
 #include "Vector3.h"
 
-float Vector3::getX() { return 1.0f; };
+
 
 // Constructor 1
 Vector3::Vector3() :

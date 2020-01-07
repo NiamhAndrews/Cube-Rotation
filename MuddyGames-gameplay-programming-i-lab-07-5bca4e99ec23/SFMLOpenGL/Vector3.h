@@ -8,7 +8,6 @@ class Vector3
 {
 public:
 
-	float getX();
 
 	// The class has three variables x, y and z 
 	float x;
