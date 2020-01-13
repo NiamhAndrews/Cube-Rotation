@@ -36,6 +36,7 @@ void Game::run()
 
 }
 
+
 void Game::initialize()
 {
 	isRunning = true;
@@ -58,13 +59,9 @@ void Game::initialize()
 	cube.push_back(Vector3(1.0f, 1.0f, -1.0f));//6
 	cube.push_back(Vector3(-1.0f, 1.0f, -1.0f));//7
 
-	
-
-
-
-
-
 }
+
+
 
 
 void Game::update()
@@ -75,19 +72,112 @@ void Game::update()
 	{
 		clock.restart();
 
-		for (Vector3 &vector : cube)
+	
+
+
+		//Rotate Right
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
 		{
-			vector = Matrix3::RotationX(0.5) * vector;
-			vector = Matrix3::RotationY(0.5) * vector;
+			for (Vector3& vector : cube)
+			{
+				vector = Matrix3::RotationY(0.5) * vector;
+			}
+			
 		}
+
+		//Rotate Left
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+		{
+			for (Vector3& vector : cube)
+			{
+				vector = Matrix3::RotationY(-0.5) * vector;
+			}
+
+		}
+		//Rotate Up
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
+		{
+			for (Vector3& vector : cube)
+			{
+
+				vector = Matrix3::RotationX(0.5) * vector;
+			}
+		}
+		//Rotate Down
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
+		{
+			for (Vector3& vector : cube)
+			{
+
+				vector = Matrix3::RotationX(-0.5) * vector;
+			}
+		}
+
+
+
+		//Increase Scale
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)))
+		{
+			for (Vector3& vector : cube)
+			{
+
+				vector = Matrix3::Scale3D(110.0f) * vector;
+			}			
+		}
+		//Decrease Scale
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Dash)))
+		{
+			for (Vector3& vector : cube)
+			{
+
+				vector = Matrix3::Scale3D(90.0f) * vector;
+			}
+		}
+
+
+
+		//Translate +
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Period)))
+		{
+
+			for (Vector3& vector : cube)
+			{
+				float tempZ = vector.z;
+				vector.z = 1;
+				vector = Matrix3::Translate(0.05f, 0.05f) * vector;
+				vector.z = tempZ;
+			}
+		}
+
+		//Translate -
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Comma)))
+		{
+
+			for (Vector3& vector : cube)
+			{
+				float tempZ = vector.z;
+				vector.z = 1;
+				vector = Matrix3::Translate(-0.05f, -0.05f) * vector;
+				vector.z = tempZ;
+			}
+		}
+
+
+
+
 
 
 		setCubePositions();
 
 	}
+
+
+
 	
 	std::cout << "Update up" << std::endl;
 }
+
+
 
 void Game::draw()
 {
@@ -96,11 +186,6 @@ void Game::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	std::cout << "Drawing Cube " << std::endl;
-	//glLoadIdentity();
-	
-	//glRotatef(rotationAngle, 0, 0, 1); // Rotates the camera on z Axis
-	//glRotatef(rotationAngle, 0, 1, 0); // Rotates the camera on z Axis
-	//glTranslatef(0.0f, 0.0f, -5.0f);
 
 	glCallList(1);
 
@@ -122,8 +207,6 @@ void Game::setCubePositions()
 	glNewList(index, GL_COMPILE);
 	glBegin(GL_TRIANGLES);
 	{
-
-
 
 
 		//Front

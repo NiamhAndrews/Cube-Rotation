@@ -25,12 +25,10 @@ private:
 	void unload();
 
 	void setCubePositions();
+	float rotationAngle = 0.0f;
+	std::vector<Vector3> cube;
 
 	GLuint index;
 	sf::Clock clock;
 	sf::Time elapsed;
-
-	std::vector<Vector3> cube;
-
-	float rotationAngle = 0.0f;
 };
